@@ -1,10 +1,11 @@
 """Test file for testing the main.py file"""
 
-import unittest
-from unittest.mock import patch
+import unittest # for creating the test case
+from unittest.mock import patch # for mocking the input
 import io # for capturing the output
 import sys # for restoring the stdout and removing the main module from the cache
 import importlib # for importing the main.py file
+from pathlib import Path # for getting the path of the main.py file
 
 class TestMain(unittest.TestCase):
     """Class for testing the main.py file"""
@@ -42,4 +43,7 @@ class TestMain(unittest.TestCase):
         self.assertIn("1\n4\n9\n16\n25\n36",captured_output.getvalue().strip())
 
 if __name__ == "__main__":
+    # add the parent directory to the path in order to run it from the run command in vscode
+    main_file_folder = Path(__file__).parents[1].as_posix() # pylint: disable=invalid-name
+    sys.path.insert(0, main_file_folder)
     unittest.main()
